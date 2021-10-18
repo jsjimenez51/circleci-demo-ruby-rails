@@ -52,10 +52,9 @@ jobs:
       # Without the Orb:
       - run:
           name: Make test results directory and execute rspec
-          command: mkdir -p /tmp/test-results/rspec 
-TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-bundle exec rspec $TESTFILES --profile 10 --format RspecJunitFormatter --out /tmp/test-results/rspec/results.xml --format progress
-
+          command: mkdir -p /tmp/test-results/rspec &
+                    TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings) &
+                    bundle exec rspec $TESTFILES --profile 10 --format RspecJunitFormatter --out /tmp/test-results/rspec/results.xml --format progress
       - store_test_results: 
           path: /tmp/test-results/rspec
       - store_artifacts:
