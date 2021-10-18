@@ -56,7 +56,6 @@ jobs:
       - run:
           name: Pass tests to be Split
           command: TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings) &
-                    cat $TESTFILES &
                     bundle exec rspec $TESTFILES --profile 10 --format RspecJunitFormatter --out /tmp/test-results/rspec/results.xml --format progress
       - store_test_results:
           path: /tmp/test-results/rspec
