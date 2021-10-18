@@ -46,22 +46,22 @@ jobs:
       # Run rspec in parallel
       
       # Using the Orb:
-      # - ruby/rspec-test
+      - ruby/rspec-test
       
 
       # Without the Orb:
-      - run:
-          name: Create Test Store Directory
-          command: mkdir -p /tmp/test-results/rspec
-      - run:
-          name: Pass tests to be Split
-          command: TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings) &
-                    bundle exec rspec $TESTFILES --profile 10 --format RspecJunitFormatter --out /tmp/test-results/rspec/results.xml --format progress
-      - store_test_results:
-          path: /tmp/test-results/rspec
-      - store_artifacts:
-          destination: test-results
-          path: /tmp/test-results/rspec
+      # - run:
+      #     name: Create Test Store Directory
+      #     command: mkdir -p /tmp/test-results/rspec
+      # - run:
+      #     name: Pass tests to be Split
+      #     command: TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings) &
+      #               bundle exec rspec $TESTFILES --profile 10 --format RspecJunitFormatter --out /tmp/test-results/rspec/results.xml --format progress
+      # - store_test_results:
+      #     path: /tmp/test-results/rspec
+      # - store_artifacts:
+      #     destination: test-results
+      #     path: /tmp/test-results/rspec
       - ruby/rubocop-check
       
 
